@@ -7,6 +7,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +33,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
 
@@ -53,25 +55,27 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("https://javademoblog.onrender.com");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        bean.setOrder(0);
+        return bean;
+    }
 
     @Bean //2- filter the request to get the role and validations
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:8080"));
-        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT","OPTIONS","PATCH", "HEAD"));
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setExposedHeaders(List.of("Authorization"));
-
         http.csrf(AbstractHttpConfigurer::disable);
-        http.cors().configurationSource(request -> corsConfiguration);
-        http.sessionManagement(session -> {
-            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        });
-        http.authorizeRequests(auth -> {
+        http.cors().and()
+        .authorizeRequests(auth -> {
             //the order of the antMatcher's positions is important, whether the first role is discarded
             //it will jump in the next block without trying the others below
-            auth.antMatchers("/**").permitAll();
             auth.antMatchers("/",
                                         "/public/**",
                                         "/static/**",
@@ -88,6 +92,9 @@ public class SecurityConfig {
             oAuth2.jwt(jwt ->
                     jwt.decoder(this.jwtDecoder())
                             .jwtAuthenticationConverter(this.jwtAuthenticationConverter()));
+        });
+        http.sessionManagement(session -> {
+            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         });
         http.addFilterBefore(redirectionFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
