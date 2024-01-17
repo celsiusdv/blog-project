@@ -1,0 +1,116 @@
+
+
+/* ///////////////////blog preview list */
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: 4px 0px 0px 80px;
+  }
+  h1{
+    font-size: 20px;
+    color: rgb(199, 194, 187);
+    margin-bottom: 15px;
+    text-shadow: 0px 2px 5px rgb(0, 0, 0);
+  }
+  .blog-list{
+    border-style: solid;
+    border-color: rgb(66, 66, 66);
+    border-width: 1px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    text-shadow: 0px 2px 5px rgb(0, 0, 0);
+    color: rgb(210, 207, 203);
+  }
+  .blog-list:hover{
+    box-shadow: 0px 1px 2px rgba(17, 132, 132, 0.5), 
+                0px 2px 4px rgba(17, 132, 132, 0.5), 
+                0px 4px 8px rgba(17, 132, 132, 0.5), 
+                0px 8px 16px rgba(17, 132, 132, 0.5);
+  }
+  .header{
+    background-color: #152433;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0px 1px 2px rgba(7, 7, 7, 0.5), 
+                0px 2px 4px rgba(7, 7, 7, 0.5), 
+                0px 4px 8px rgba(7, 7, 7, 0.5), 
+                0px 8px 16px rgba(7, 7, 7, 0.5);
+  }
+  .image{
+    width: 60px;
+  }
+  .title p{
+    font-size: small;
+    font-style: italic;
+  }
+  .blog-preview{
+    padding: 20px;
+  }
+
+
+  /* ////////////////////////blog view */
+  .blog-container{
+    display: flex;
+    align-items: flex-start;
+  }
+  .blog{
+    resize: both;
+    overflow: auto;
+    flex: 2 1 0%;
+    text-align: left;
+    padding: 30px 10px 10px 40px;
+  }
+  .blog h1{
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+  .blog p{
+    white-space: pre-wrap;
+    margin-top: 20px;
+  }
+  .management-pane{
+    flex: 1 1 0%;
+    align-self: flex-start;
+    position: sticky;  
+    position: -webkit-sticky;
+    top: 40px;
+    padding: 20px;
+    margin-left: 50px;
+    text-align: center;
+  }
+  /* ///////////// edit blog (BlogView.tsx */
+  .edit-title{
+    width: 756.65px;
+    height: 60px;
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+  .edit-post{
+    flex: 2 1 0%;
+    height: 700px;
+    width: 930.667px;
+  }
+  
+    /* ///////////// create blog (CreateBlog.tsx) */
+    .create-blog{
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    .left-pane{
+      min-width: 100px;
+    }
+    .inputs{
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+      flex: 3;
+      text-align: center;
+      align-items: center;
+    }
+
