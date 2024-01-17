@@ -7,7 +7,11 @@ import useRefreshToken from "./useRefreshToken";
 
 //use this constanst to reach protected endpoints
 const axiosPrivate = axios.create({
-	baseURL: 'http://localhost:8080'//spring boot api base url
+	baseURL: 'http://localhost:8080',//spring boot api base url
+	headers: { 
+		"Content-Type": "application/json",
+	 },
+
 });
 const useInterceptor = () => {
 	const { auth }: UserAuth = useAuthContext();
