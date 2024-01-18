@@ -33,6 +33,7 @@ build/
 .vscode/
 # dependencies
 /node_modules
+src/main/front-end/node
 /.pnp
 .pnp.js
 
@@ -41,6 +42,7 @@ build/
 
 # production
 /build
+/node
 
 # misc
 .DS_Store
