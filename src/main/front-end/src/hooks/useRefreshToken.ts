@@ -12,7 +12,7 @@ const useRefreshToken = () => {
         refreshToken:auth.refreshToken!
     };
     const refresh = async (): Promise<Token> => {
-        const response = await axios.post<Token>('http://localhost:8080/api/authentication/refresh-token',
+        const response = await axios.post<Token>('/api/authentication/refresh-token',
         tokens,// sends a refresh token to be verified in the server
         {
             headers: { 

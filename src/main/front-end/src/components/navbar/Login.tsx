@@ -19,7 +19,7 @@ const Login = () => {
         let body: User = { email, password };
         let loginResponse:LoginResponse={};
         try {        //wait until the fetching is complete          
-            const response = await axios.post<LoginResponse>("http://localhost:8080/api/authentication/login",
+            const response = await axios.post<LoginResponse>("/api/authentication/login",
             body,//object to send to the server
                 {
                     headers: { 
