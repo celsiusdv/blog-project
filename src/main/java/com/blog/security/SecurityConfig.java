@@ -54,14 +54,23 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Collections.singletonList("https://blog-project-production-8107.up.railway.app"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "content-type"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "content-type"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
     @Bean //2- filter the request to get the role and validations
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
-        http.cors(corsConfigurer ->
-                        corsConfigurer.configurationSource(request ->
-                                new CorsConfiguration().applyPermitDefaultValues()))
-                .authorizeRequests(auth -> {
+        http.cors(Customizer.withDefaults());
+        http.authorizeRequests(auth -> {
             //the order of the antMatcher's positions is important, whether the first role is discarded
             //it will jump in the next block without trying the others below
             auth.antMatchers("/",
