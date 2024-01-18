@@ -58,10 +58,8 @@ public class SecurityConfig {
     @Bean //2- filter the request to get the role and validations
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
-        http.cors(corsConfigurer ->
-                        corsConfigurer.configurationSource(request ->
-                                new CorsConfiguration().applyPermitDefaultValues()))
-                .authorizeRequests(auth -> {
+        http.cors();
+        http.authorizeRequests(auth -> {
             //the order of the antMatcher's positions is important, whether the first role is discarded
             //it will jump in the next block without trying the others below
             auth.antMatchers("/",
