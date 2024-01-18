@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/blogs")
-@CrossOrigin("https://blog-project-production-8107.up.railway.app/")
 public class BlogController {
 
     @Autowired private BlogService blogService;

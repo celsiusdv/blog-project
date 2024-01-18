@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/authentication")
-@CrossOrigin("https://blog-project-production-8107.up.railway.app/")
 public class AuthenticationController {
 
     @Autowired

@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/users")
-@CrossOrigin("https://blog-project-production-8107.up.railway.app/")
 public class UserController {
 
     @Autowired
