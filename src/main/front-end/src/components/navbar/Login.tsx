@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
     const navigate = useNavigate();
     const authContext  = useContext<UserAuth | undefined>(AuthContext);//fill the data and manage it in AuthProvider.tsx
-    const [email,setEmail]=useState<string>("john@doe.com");
+    const [email,setEmail]=useState<string>("john@doe.com");//default admin input just for testing purposes
     const [password,setPassword]=useState<string>("hello");//default admin input just for testing purposes
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
